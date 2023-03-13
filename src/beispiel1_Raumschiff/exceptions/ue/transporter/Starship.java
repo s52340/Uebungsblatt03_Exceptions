@@ -10,14 +10,14 @@ public class Starship {
         this.transporter = transporter;
     }
 
+    //throw new RuntimeException richtig? (gewrappt)
     public void beamUp(String person, String from){
         try {
             transporter.beam(person, from, name, true);
             System.out.println(person + " wurde erfolgreich nach " + name + " gebeamt." );
         } catch (TransporterMalfunctionException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             transporter.shutdown();
         }
     }

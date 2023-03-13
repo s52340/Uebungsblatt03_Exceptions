@@ -12,11 +12,11 @@ public class Bank {
     }
 
     public void addAccount(String owner, double balance, double overdraftFrame) throws BankException {
-        Account account = new Account(owner,balance,overdraftFrame);
-        if (accounts.containsValue(account.getOwner())){
+        Account acc = new Account(owner,balance,overdraftFrame);
+        if (accounts.containsValue(acc.getOwner())){
             throw new BankException("Account hinzufügen nicht möglich da dieser Besitzer " + owner + "schon existiert");
         }
-        accounts.put(owner, account);
+        accounts.put(owner, acc);
     }
 
     public void transfer(String fromOwner, String toOwner, double amount) throws AccountNotFoundException, BankException {
@@ -27,7 +27,8 @@ public class Bank {
             accounts.get(fromOwner).debit(amount);
             accounts.get(toOwner).credit(amount);
         } catch (NotEnoughMoneyException e) {
-            throw new BankException("BankException");
+            //throw new RuntimeException(e);
+            throw new BankException("Not enough money Exception", e);
         }
 
 
